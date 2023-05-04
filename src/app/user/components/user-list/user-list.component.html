@@ -1,0 +1,9 @@
+<mat-list>
+  <mat-list-item *ngFor="let user of users" (click)="onItemClick(user)">
+    <span matListItemTitle>{{ user.email }}</span>
+    <span matListItemAvatar>
+      <img [src]="user.avatar" alt="user avatar" />
+    </span>
+    <span matListItemLine>{{ user.first_name }} {{ user.last_name }}</span>
+  </mat-list-item>
+</mat-list>
