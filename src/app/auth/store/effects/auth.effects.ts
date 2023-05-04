@@ -1,15 +1,22 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 
-import { catchError, map, of, switchMap } from 'rxjs';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
 
 import { actions } from '../actions/auth.actions';
 import { AuthApiService } from '../../service/auth-api.service';
+import { AuthLocalStorageService } from '../../service/auth-localstorage.service';
 
 @Injectable()
 export class AuthEffects {
-  constructor(private actions$: Actions, private authApi: AuthApiService) {}
+  constructor(
+    private actions$: Actions,
+    private router: Router,
+    private authApi: AuthApiService,
+    private authLs: AuthLocalStorageService
+  ) {}
 
   register$ = createEffect(() =>
     this.actions$.pipe(
@@ -17,8 +24,12 @@ export class AuthEffects {
       map((action) => action.payload),
       switchMap((payload) => {
         return this.authApi.registerUser(payload).pipe(
+          tap((response) => this.authLs.saveToken(response.token)),
           map((response) => actions.registerUserSuccess({ payload: response })),
-          catchError((err) => of(actions.registerUserFailure({ payload: err })))
+          catchError((err) => {
+            this.authLs.clearToken();
+            return of(actions.registerUserFailure({ payload: err }));
+          })
         );
       })
     )
@@ -30,10 +41,23 @@ export class AuthEffects {
       map((action) => action.payload),
       switchMap((payload) => {
         return this.authApi.loginUser(payload).pipe(
+          tap((response) => this.authLs.saveToken(response.token)),
           map((response) => actions.loginUserSuccess({ payload: response })),
-          catchError((err) => of(actions.loginUserFailure({ payload: err })))
+          catchError((err) => {
+            this.authLs.clearToken();
+            return of(actions.loginUserFailure({ payload: err }));
+          })
         );
       })
     )
+  );
+
+  authSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actions.loginUserSuccess, actions.registerUserSuccess),
+        tap(() => this.router.navigate(['users']))
+      ),
+    { dispatch: false }
   );
 }
