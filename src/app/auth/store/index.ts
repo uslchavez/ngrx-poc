@@ -4,7 +4,6 @@ import { authReducer } from './reducers/auth.reducer';
 import { AuthState } from '../model/auth-state.model';
 
 export * from './actions/auth.actions';
+export * from './selectors';
 
 export const reducers = [authReducer];
-
-export const getAuthState = createFeatureSelector<AuthState>('auth');
