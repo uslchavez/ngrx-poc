@@ -1,15 +1,15 @@
 import { createReducer, on } from '@ngrx/store';
-import { ListUserResponse, ListUsers } from '../../models';
+import { ListUsers } from '../../models';
 import { actions } from '../actions';
 
-export const initalState: ListUsers = {
+export const listInitialState: ListUsers = {
   entities: {},
   loaded: false,
   loading: false,
 };
 
-export const reducer = createReducer(
-  initalState,
+export const listReducer = createReducer(
+  listInitialState,
   on(actions.loadUsers, (state) => {
     return {
       ...state,

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ListUserResponse } from '../models';
+
+import { ListUserResponse, SingleUserResponse } from '../models';
 
 @Injectable()
 export class UsersApiService {
@@ -12,5 +13,9 @@ export class UsersApiService {
     return this.http.get<ListUserResponse>(`${this.baseURL}/users`, {
       params: { page },
     });
+  }
+
+  getUser(id: number) {
+    return this.http.get<SingleUserResponse>(`${this.baseURL}/users/${id}`);
   }
 }
