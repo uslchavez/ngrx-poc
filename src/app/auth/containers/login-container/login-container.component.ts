@@ -1,6 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Store } from '@ngrx/store';
+
+import { Observable } from 'rxjs';
+
+import {
+  getError,
+  getLoading,
+  getToken,
+  actions as authActions,
+  getAuthState,
+} from '../../store';
 import { LoginDTO } from '../../model';
+import { AuthState } from '../../model/auth-state.model';
 
 @Component({
   selector: 'app-login-container',
@@ -8,9 +20,23 @@ import { LoginDTO } from '../../model';
   styleUrls: ['./login-container.component.scss'],
 })
 export class LoginContainerComponent implements OnInit {
-  ngOnInit(): void {}
+  error$!: Observable<string>;
+  token$!: Observable<string>;
+  loading$!: Observable<boolean>;
 
-  onLogin(loginDto: LoginDTO) {}
+  constructor(private store: Store) {}
 
-  onRegister(loginDto: LoginDTO) {}
+  ngOnInit(): void {
+    this.error$ = this.store.select(getError);
+    this.token$ = this.store.select(getToken);
+    this.loading$ = this.store.select(getLoading);
+  }
+
+  onLogin(loginDto: LoginDTO) {
+    this.store.dispatch(authActions.loginUser({ payload: loginDto }));
+  }
+
+  onRegister(loginDto: LoginDTO) {
+    this.store.dispatch(authActions.registerUser({ payload: loginDto }));
+  }
 }
