@@ -1,0 +1,64 @@
+<form class="login-form" #form="ngForm" autocomplete="off">
+  <mat-form-field class="login-form-field">
+    <mat-label>Email</mat-label>
+    <input
+      name="email"
+      type="email"
+      required
+      email
+      aria-label="Email input"
+      matInput
+      ngModel
+      #email="ngModel"
+    />
+    <mat-icon matSuffix>person</mat-icon>
+    <mat-error>
+      <ng-container *ngIf="email.touched && email.invalid && email.errors">
+        <span *ngIf="email.errors['required']">Enter your email</span>
+        <span *ngIf="email.errors['email']">Enter a valid email</span>
+      </ng-container>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="login-form-field">
+    <mat-label>Password</mat-label>
+    <input
+      type="password"
+      name="password"
+      aria-label="Password input"
+      required
+      matInput
+      ngModel
+      #password="ngModel"
+    />
+    <mat-icon matSuffix>lock</mat-icon>
+    <mat-error>
+      <ng-container
+        *ngIf="password.touched && password.invalid && password.errors"
+      >
+        <span *ngIf="password.errors['required']">Enter your password</span>
+      </ng-container>
+    </mat-error>
+  </mat-form-field>
+  <button
+    type="button"
+    class="login-form-button"
+    color="primary"
+    mat-raised-button
+    [disabled]="form.invalid"
+    (click)="onLoginClick(form)"
+    *ngIf="currentPage === 'login'"
+  >
+    Log In
+  </button>
+  <button
+    type="button"
+    class="login-form-button"
+    color="primary"
+    mat-raised-button
+    [disabled]="form.invalid"
+    (click)="onRegisterClick(form)"
+    *ngIf="currentPage === 'register'"
+  >
+    Register
+  </button>
+</form>
