@@ -41,6 +41,7 @@ export const listReducer = createReducer(
         ...state.entities,
         [id]: {
           ...payload,
+          id,
           avatar: `https://ui-avatars.com/api/?name=${payload.first_name}+${payload.last_name}`,
         },
       },
