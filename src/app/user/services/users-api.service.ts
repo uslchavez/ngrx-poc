@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { ListUserResponse, SingleUserResponse } from '../models';
+import { ListUserResponse, SingleUserResponse, User } from '../models';
 
 @Injectable()
 export class UsersApiService {
@@ -21,5 +21,13 @@ export class UsersApiService {
 
   deleteUser(id: number) {
     return this.http.delete(`${this.baseURL}/users/${id}`);
+  }
+
+  updateUser(user: User) {
+    return this.http.put(`${this.baseURL}/users/${user.id}`, user);
+  }
+
+  createUser(user: User) {
+    return this.http.post(`${this.baseURL}/users`, user);
   }
 }

@@ -65,4 +65,30 @@ export class UsersEffect {
       )
     )
   );
+
+  updateUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.updateUser),
+      map((action) => action.payload),
+      switchMap((payload) =>
+        this.usersApi.updateUser(payload).pipe(
+          map(() => actions.updateUserSuccess({ payload })),
+          catchError(() => of(actions.updateUserFailure()))
+        )
+      )
+    )
+  );
+
+  createUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.createUser),
+      map((action) => action.payload),
+      switchMap((payload) =>
+        this.usersApi.createUser(payload).pipe(
+          map(() => actions.createUserSuccess({ payload })),
+          catchError(() => of(actions.createUserFailure()))
+        )
+      )
+    )
+  );
 }

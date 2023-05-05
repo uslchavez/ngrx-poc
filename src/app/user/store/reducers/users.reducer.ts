@@ -34,18 +34,25 @@ export const listReducer = createReducer(
     };
   }),
   on(actions.createUserSuccess, (state, { payload }) => {
+    const id = String(new Date().getTime());
     return {
       ...state,
       entities: {
         ...state.entities,
-        payload,
+        [id]: {
+          ...payload,
+          avatar: `https://ui-avatars.com/api/?name=${payload.first_name}+${payload.last_name}`,
+        },
       },
     };
   }),
   on(actions.updateUserSuccess, (state, { payload }) => {
     const entities = {
       ...state.entities,
-      [payload.id]: payload,
+      [payload.id]: {
+        ...payload,
+        avatar: state.entities[payload.id].avatar,
+      },
     };
     return {
       ...state,

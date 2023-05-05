@@ -15,6 +15,10 @@ const routes: Routes = [
     canActivate: [CanActivateUsersLoaderFn],
   },
   {
+    path: 'add',
+    component: UserDetailsContainerComponent,
+  },
+  {
     path: ':id',
     component: UserDetailsContainerComponent,
     canActivate: [CanActivateSingleUserLoaderFn],

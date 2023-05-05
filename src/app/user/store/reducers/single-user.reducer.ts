@@ -6,7 +6,13 @@ import { SingleUser } from '../../models';
 export const singleInitialState: SingleUser = {
   loaded: false,
   loading: false,
-  user: undefined,
+  user: {
+    id: 0,
+    first_name: '',
+    last_name: '',
+    avatar: '',
+    email: '',
+  },
 };
 
 export const singleUserReducer = createReducer(
