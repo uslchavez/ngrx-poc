@@ -4,8 +4,9 @@ import { Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
 
-import { User } from '../models';
-import { getUsersList, getUsersLoaded, getUsersLoading } from '../store';
+import { User } from '../../models';
+import { getUsersList, getUsersLoaded, getUsersLoading } from '../../store';
+import { routerActions } from 'src/app/store';
 
 @Component({
   selector: 'user-list-container',
@@ -26,6 +27,6 @@ export class UserListContainerComponent implements OnInit {
   }
 
   onItemClicked(user: User) {
-    console.log(user);
+    this.store.dispatch(routerActions.go({ payload: ['users', `${user.id}`] }));
   }
 }

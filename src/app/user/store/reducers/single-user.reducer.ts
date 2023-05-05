@@ -15,11 +15,13 @@ export const singleUserReducer = createReducer(
     return {
       ...state,
       loading: true,
+      loaded: false,
     };
   }),
-  on(actions.loadSingleUserSuccess, (state) => {
+  on(actions.loadSingleUserSuccess, (state, { payload }) => {
     return {
       ...state,
+      user: payload.data,
       loading: true,
       loaded: true,
     };

@@ -1,0 +1,61 @@
+<form #form="ngForm">
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input
+      name="email"
+      type="email"
+      required
+      email
+      aria-label="Email input"
+      matInput
+      ngModel
+      #email="ngModel"
+    />
+    <mat-error>
+      <ng-container *ngIf="email.touched && email.invalid && email.errors">
+        <span *ngIf="email.errors['required']">Enter your email</span>
+        <span *ngIf="email.errors['email']">Enter a valid email</span>
+      </ng-container>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>First name</mat-label>
+    <input
+      name="firstName"
+      type="text"
+      required
+      aria-label="First name input"
+      matInput
+      ngModel
+      #firstName="ngModel"
+    />
+    <mat-error>
+      <ng-container
+        *ngIf="firstName.touched && firstName.invalid && firstName.errors"
+      >
+        <span *ngIf="firstName.errors['required']">Enter your first name</span>
+      </ng-container>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Last name</mat-label>
+    <input
+      name="lastName"
+      type="text"
+      required
+      aria-label="last name input"
+      matInput
+      ngModel
+      #lastName="ngModel"
+    />
+    <mat-error>
+      <ng-container
+        *ngIf="lastName.touched && lastName.invalid && lastName.errors"
+      >
+        <span *ngIf="lastName.errors['required']">Enter your last name</span>
+      </ng-container>
+    </mat-error>
+  </mat-form-field>
+  <button type="button" (click)="onDelete(user)">Delete</button>
+  <button type="button" (click)="onUpdate(user)">Update</button>
+</form>
