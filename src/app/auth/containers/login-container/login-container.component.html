@@ -1,4 +1,7 @@
-<user-form
-  (login)="onLogin($event)"
-  (register)="onRegister($event)"
-></user-form>
+<section class="auth-container">
+  <h1>{{ title }}</h1>
+  <user-form
+    (login)="onLogin($event)"
+    (register)="onRegister($event)"
+  ></user-form>
+</section>

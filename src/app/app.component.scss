@@ -1,0 +1,11 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+a:not(:last-child) {
+  margin-right: 10px;
+}
+
+a.active {
+  background-color: rgba(0, 0, 0, 0.2);
+}

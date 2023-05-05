@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 import {
   getError,
@@ -23,13 +24,20 @@ export class LoginContainerComponent implements OnInit {
   error$!: Observable<string>;
   token$!: Observable<string>;
   loading$!: Observable<boolean>;
+  private notifier = new Subject();
+  title = '';
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.error$ = this.store.select(getError);
     this.token$ = this.store.select(getToken);
     this.loading$ = this.store.select(getLoading);
+
+    this.route.params.pipe(takeUntil(this.notifier)).subscribe((params) => {
+      this.title =
+        params['page'] === 'register' ? 'Sign Up Page' : 'Sign In Page';
+    });
   }
 
   onLogin(loginDto: LoginDTO) {

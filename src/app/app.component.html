@@ -1,8 +1,13 @@
-<ul>
-  <li>
-    <a routerLink="users">users</a>
-    <a routerLink="auth">login</a>
-  </li>
-</ul>
+<p>
+  <mat-toolbar color="primary">
+    <span>User management app</span>
+    <span class="example-spacer"></span>
+    <a mat-button routerLinkActive="active" routerLink="users">Users</a>
+    <a mat-button routerLinkActive="active" routerLink="auth/login">Sign In</a>
+    <a mat-stroked-button routerLinkActive="active" routerLink="auth/register"
+      >Sign Up</a
+    >
+  </mat-toolbar>
+</p>
 
 <router-outlet></router-outlet>
