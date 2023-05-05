@@ -5,7 +5,12 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { User } from '../../models';
-import { getUsersList, getUsersLoaded, getUsersLoading } from '../../store';
+import {
+  actions,
+  getUsersList,
+  getUsersLoaded,
+  getUsersLoading,
+} from '../../store';
 import { routerActions } from 'src/app/store';
 
 @Component({
@@ -27,6 +32,9 @@ export class UserListContainerComponent implements OnInit {
   }
 
   onItemClicked(user: User) {
+    this.store.dispatch(
+      actions.loadSingleUserSuccess({ payload: { data: user } })
+    );
     this.store.dispatch(routerActions.go({ payload: ['users', `${user.id}`] }));
   }
 }
