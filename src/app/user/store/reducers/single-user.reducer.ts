@@ -25,5 +25,11 @@ export const singleUserReducer = createReducer(
       loading: true,
       loaded: true,
     };
+  }),
+  on(actions.createUser, (state) => {
+    return {
+      ...state,
+      loading: true,
+    };
   })
 );

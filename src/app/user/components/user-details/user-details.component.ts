@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { User } from '../../models';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'user-details',
@@ -28,15 +29,19 @@ export class UserDetailsComponent implements OnInit {
     }
   }
 
-  onDelete(user: User) {
-    this.delete.emit(user);
+  onDelete(form: NgForm) {
+    this.delete.emit({ ...form.value, id: this.user.id });
   }
 
-  onUpdate(user: User) {
-    this.update.emit(user);
+  onUpdate(form: NgForm) {
+    if (form.valid) {
+      this.update.emit({ ...form.value, id: this.user.id });
+    }
   }
 
-  onCreate(user: User) {
-    this.create.emit(user);
+  onCreate(form: NgForm) {
+    if (form.valid) {
+      this.create.emit(form.value);
+    }
   }
 }

@@ -58,15 +58,25 @@
   </mat-form-field>
   <section class="buttons">
     <ng-container *ngIf="user.id > 0; else create">
-      <button mat-raised-button type="button" (click)="onDelete(form.value)">
+      <button type="button" mat-raised-button (click)="onDelete(form)">
         Delete
       </button>
-      <button mat-raised-button type="button" (click)="onUpdate(form.value)">
+      <button
+        type="button"
+        mat-raised-button
+        [disabled]="form.invalid"
+        (click)="onUpdate(form)"
+      >
         Update
       </button>
     </ng-container>
     <ng-template #create>
-      <button mat-raised-button type="button" (click)="onCreate(form.value)">
+      <button
+        type="button"
+        mat-raised-button
+        [disabled]="form.invalid"
+        (click)="onCreate(form)"
+      >
         Create
       </button>
     </ng-template>

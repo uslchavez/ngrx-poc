@@ -52,4 +52,17 @@ export class UsersEffect {
       ),
     { dispatch: false }
   );
+
+  deleteUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.deleteUser),
+      map((action) => action.payload),
+      switchMap((payload) =>
+        this.usersApi.deleteUser(payload.id).pipe(
+          map(() => actions.deleteUserSuccess({ payload })),
+          catchError(() => of(actions.deleteUserFailure()))
+        )
+      )
+    )
+  );
 }

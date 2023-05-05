@@ -18,4 +18,8 @@ export class UsersApiService {
   getUser(id: number) {
     return this.http.get<SingleUserResponse>(`${this.baseURL}/users/${id}`);
   }
+
+  deleteUser(id: number) {
+    return this.http.delete(`${this.baseURL}/users/${id}`);
+  }
 }

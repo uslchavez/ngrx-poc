@@ -32,5 +32,31 @@ export const listReducer = createReducer(
       loaded: true,
       entities,
     };
+  }),
+  on(actions.createUserSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      entities: {
+        ...state.entities,
+        payload,
+      },
+    };
+  }),
+  on(actions.updateUserSuccess, (state, { payload }) => {
+    const entities = {
+      ...state.entities,
+      [payload.id]: payload,
+    };
+    return {
+      ...state,
+      entities,
+    };
+  }),
+  on(actions.deleteUserSuccess, (state, { payload }) => {
+    const { [payload.id]: removed, ...entities } = state.entities;
+    return {
+      ...state,
+      entities,
+    };
   })
 );

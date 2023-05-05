@@ -1,6 +1,11 @@
 <section class="user-details-container">
   <h2>User Details</h2>
   <ng-container *ngIf="user$ | async as user">
-    <user-details [user]="user"></user-details>
+    <user-details
+      [user]="user"
+      (create)="onCreate($event)"
+      (delete)="onDelete($event)"
+      (update)="onUpdate($event)"
+    ></user-details>
   </ng-container>
 </section>

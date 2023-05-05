@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 
 import { User } from '../../models';
 import {
+  actions,
   getSingleUser,
   getSingleUserLoaded,
   getSingleUserLoading,
@@ -27,5 +28,17 @@ export class UserDetailsContainerComponent {
     this.loaded$ = this.store.select(getSingleUserLoaded);
     this.loading$ = this.store.select(getSingleUserLoading);
     this.user$ = this.store.select(getSingleUser);
+  }
+
+  onUpdate(user: User) {
+    this.store.dispatch(actions.updateUser({ payload: user }));
+  }
+
+  onDelete(user: User) {
+    this.store.dispatch(actions.deleteUser({ payload: user }));
+  }
+
+  onCreate(user: User) {
+    this.store.dispatch(actions.createUser({ payload: user }));
   }
 }
