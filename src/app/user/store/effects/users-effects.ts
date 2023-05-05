@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
+import { catchError, map, of, switchMap, tap } from 'rxjs';
+
+import { routerActions } from 'src/app/store';
 import { UsersApiService } from '../../services/users-api.service';
 import { actions } from '../actions';
-import { catchError, map, of, switchMap, tap } from 'rxjs';
-import { Router } from '@angular/router';
 
 @Injectable()
 export class UsersEffect {
@@ -89,6 +91,17 @@ export class UsersEffect {
           catchError(() => of(actions.createUserFailure()))
         )
       )
+    )
+  );
+
+  successOperation$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(
+        actions.createUserSuccess,
+        actions.deleteUserSuccess,
+        actions.updateUserSuccess
+      ),
+      switchMap(() => of(routerActions.go({ payload: ['users'] })))
     )
   );
 }
