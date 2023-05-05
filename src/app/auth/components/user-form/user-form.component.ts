@@ -20,6 +20,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class UserFormComponent implements OnInit, OnDestroy {
   @Output() login = new EventEmitter<LoginDTO>();
   @Output() register = new EventEmitter<LoginDTO>();
+  @Input() loading = false;
   currentPage: string = '';
 
   private notifier = new Subject();

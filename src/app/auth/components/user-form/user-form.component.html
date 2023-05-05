@@ -44,7 +44,7 @@
     class="login-form-button"
     color="primary"
     mat-raised-button
-    [disabled]="form.invalid"
+    [disabled]="form.invalid || loading"
     (click)="onLoginClick(form)"
     *ngIf="currentPage === 'login'"
   >
@@ -55,7 +55,7 @@
     class="login-form-button"
     color="primary"
     mat-raised-button
-    [disabled]="form.invalid"
+    [disabled]="form.invalid || loading"
     (click)="onRegisterClick(form)"
     *ngIf="currentPage === 'register'"
   >

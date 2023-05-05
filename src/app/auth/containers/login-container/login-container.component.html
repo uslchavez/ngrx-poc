@@ -3,5 +3,6 @@
   <user-form
     (login)="onLogin($event)"
     (register)="onRegister($event)"
+    [loading]="(loading$ | async) || false"
   ></user-form>
 </section>
