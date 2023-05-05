@@ -7,6 +7,7 @@ import {
   CanActivateUsersLoaderFn,
 } from './guards';
 import { UserDetailsContainerComponent } from './container/user-details-container/user-details-container.component';
+import { NewUserContainerComponent } from './container/new-user-container/new-user-container.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,8 @@ const routes: Routes = [
   },
   {
     path: 'add',
-    component: UserDetailsContainerComponent,
+    component: NewUserContainerComponent,
+    canActivate: [CanActivateUsersLoaderFn],
   },
   {
     path: ':id',

@@ -10,6 +10,7 @@ import { NgForm } from '@angular/forms';
 })
 export class UserDetailsComponent implements OnInit {
   @Input() user!: User;
+  @Input() loading = false;
   @Output() delete = new EventEmitter<User>();
   @Output() update = new EventEmitter<User>();
   @Output() create = new EventEmitter<User>();

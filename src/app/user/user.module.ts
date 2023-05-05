@@ -18,6 +18,7 @@ import {
   MAT_FORM_FIELD_DEFAULT_OPTIONS,
   MatFormFieldDefaultOptions,
 } from '@angular/material/form-field';
+import { NewUserContainerComponent } from './container/new-user-container/new-user-container.component';
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'outline',
@@ -29,6 +30,7 @@ const appearance: MatFormFieldDefaultOptions = {
     UserListComponent,
     UserDetailsContainerComponent,
     UserDetailsComponent,
+    NewUserContainerComponent,
   ],
   imports: [
     CommonModule,

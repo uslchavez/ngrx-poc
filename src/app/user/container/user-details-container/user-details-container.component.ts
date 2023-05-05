@@ -37,8 +37,4 @@ export class UserDetailsContainerComponent {
   onDelete(user: User) {
     this.store.dispatch(actions.deleteUser({ payload: user }));
   }
-
-  onCreate(user: User) {
-    this.store.dispatch(actions.createUser({ payload: user }));
-  }
 }

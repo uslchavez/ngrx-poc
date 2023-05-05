@@ -28,11 +28,41 @@ export const singleUserReducer = createReducer(
     return {
       ...state,
       user: payload.data,
-      loading: true,
+      loading: false,
       loaded: true,
     };
   }),
   on(actions.createUser, (state) => {
+    return {
+      ...state,
+      loading: true,
+    };
+  }),
+  on(actions.createUserSuccess, (state) => {
+    return {
+      ...state,
+      loading: false,
+    };
+  }),
+  on(actions.deleteUserSuccess, (state) => {
+    return {
+      ...state,
+      loading: false,
+    };
+  }),
+  on(actions.updateUserSuccess, (state) => {
+    return {
+      ...state,
+      loading: false,
+    };
+  }),
+  on(actions.updateUser, (state) => {
+    return {
+      ...state,
+      loading: true,
+    };
+  }),
+  on(actions.deleteUser, (state) => {
     return {
       ...state,
       loading: true,

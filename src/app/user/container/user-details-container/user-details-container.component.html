@@ -2,8 +2,8 @@
   <h2>User Details</h2>
   <ng-container *ngIf="user$ | async as user">
     <user-details
+      [loading]="(loading$ | async) || false"
       [user]="user"
-      (create)="onCreate($event)"
       (delete)="onDelete($event)"
       (update)="onUpdate($event)"
     ></user-details>
