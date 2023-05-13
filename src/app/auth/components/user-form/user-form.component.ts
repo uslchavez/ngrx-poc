@@ -9,7 +9,7 @@ import {
 import { NgForm } from '@angular/forms';
 
 import { LoginDTO } from '../../model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({

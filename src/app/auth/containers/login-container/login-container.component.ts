@@ -10,10 +10,8 @@ import {
   getLoading,
   getToken,
   actions as authActions,
-  getAuthState,
 } from '../../store';
 import { LoginDTO } from '../../model';
-import { AuthState } from '../../model/auth-state.model';
 
 @Component({
   selector: 'app-login-container',

@@ -63,12 +63,13 @@ describe('UsersApiService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should do a GET request calling "getUsers" method', () => {
+  it('should do a GET request calling "getUsers" method', (done: DoneFn) => {
     service
       .getUsers()
       .pipe(take(1))
       .subscribe((result) => {
         expect(result).toBe(responseGetAllUsers);
+        done();
       });
 
     const requestMatch: RequestMatch = {
@@ -83,13 +84,14 @@ describe('UsersApiService', () => {
     httpController.verify();
   });
 
-  it('should do a GET request calling "getUser" method', () => {
+  it('should do a GET request calling "getUser" method', (done: DoneFn) => {
     const userId = 1;
     service
       .getUser(userId)
       .pipe(take(1))
       .subscribe((response) => {
         expect(response).toBe(responseGetUser);
+        done();
       });
 
     const requestMatch: RequestMatch = {
@@ -104,12 +106,15 @@ describe('UsersApiService', () => {
     httpController.verify();
   });
 
-  it('should do a DELETE request calling "deleteUser" method', () => {
+  it('should do a DELETE request calling "deleteUser" method', (done: DoneFn) => {
     const userId = 1;
     service
       .deleteUser(userId)
       .pipe(take(1))
-      .subscribe(() => {});
+      .subscribe(() => {
+        expect().nothing();
+        done();
+      });
 
     const requestMatch: RequestMatch = {
       method: 'DELETE',
@@ -123,11 +128,14 @@ describe('UsersApiService', () => {
     httpController.verify();
   });
 
-  it('should do a POST request calling "createUser" method', () => {
+  it('should do a POST request calling "createUser" method', (done: DoneFn) => {
     service
       .createUser(requestCreateUser)
       .pipe(take(1))
-      .subscribe(() => {});
+      .subscribe(() => {
+        expect().nothing();
+        done();
+      });
 
     const requestMatch: RequestMatch = {
       method: 'POST',
@@ -141,11 +149,14 @@ describe('UsersApiService', () => {
     httpController.verify();
   });
 
-  it('should do a PUT request calling "updateUser" method', () => {
+  it('should do a PUT request calling "updateUser" method', (done: DoneFn) => {
     service
       .updateUser(requestCreateUser)
       .pipe(take(1))
-      .subscribe(() => {});
+      .subscribe(() => {
+        expect().nothing();
+        done();
+      });
 
     const requestMatch: RequestMatch = {
       method: 'PUT',

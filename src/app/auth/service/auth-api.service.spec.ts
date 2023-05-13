@@ -11,7 +11,7 @@ import { take } from 'rxjs';
 
 const authRequest: LoginDTO = {
   password: '123qwe',
-  username: 'user01',
+  email: 'user01',
 };
 
 const registrationResponse: RegisterResponse = {

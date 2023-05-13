@@ -4,6 +4,7 @@
     <input
       name="email"
       type="email"
+      data-testid="email-field"
       required
       email
       aria-label="Email input"
@@ -24,6 +25,7 @@
     <input
       type="password"
       name="password"
+      data-testid="password-field"
       aria-label="Password input"
       required
       matInput
@@ -42,6 +44,7 @@
   <button
     type="button"
     class="login-form-button"
+    data-testid="login-button"
     color="primary"
     mat-raised-button
     [disabled]="form.invalid || loading"
@@ -53,6 +56,7 @@
   <button
     type="button"
     class="login-form-button"
+    data-testid="register-button"
     color="primary"
     mat-raised-button
     [disabled]="form.invalid || loading"
