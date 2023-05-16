@@ -28,7 +28,7 @@ export class AuthEffects {
           map((response) => actions.registerUserSuccess({ payload: response })),
           catchError((err) => {
             this.authLs.clearToken();
-            return of(actions.registerUserFailure({ payload: err }));
+            return of(actions.registerUserFailure({ payload: { error: err } }));
           })
         );
       })
@@ -45,7 +45,7 @@ export class AuthEffects {
           map((response) => actions.loginUserSuccess({ payload: response })),
           catchError((err) => {
             this.authLs.clearToken();
-            return of(actions.loginUserFailure({ payload: err }));
+            return of(actions.loginUserFailure({ payload: { error: err } }));
           })
         );
       })
