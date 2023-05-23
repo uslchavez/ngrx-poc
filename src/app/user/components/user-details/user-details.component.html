@@ -7,6 +7,7 @@
       required
       email
       aria-label="Email input"
+      data-testid="email-input"
       matInput
       [(ngModel)]="data.email"
       #email="ngModel"
@@ -25,6 +26,7 @@
       type="text"
       required
       aria-label="First name input"
+      data-testid="first-name-input"
       matInput
       [(ngModel)]="data.first_name"
       #firstName="ngModel"
@@ -44,6 +46,7 @@
       type="text"
       required
       aria-label="last name input"
+      data-testid="last-name-input"
       matInput
       [(ngModel)]="data.last_name"
       #lastName="ngModel"
@@ -60,6 +63,7 @@
     <ng-container *ngIf="user.id > 0; else create">
       <button
         type="button"
+        data-testid="delete-button"
         color="warn"
         mat-raised-button
         (click)="onDelete(form)"
@@ -69,8 +73,9 @@
       </button>
       <button
         type="button"
+        data-testid="update-button"
         mat-raised-button
-        [disabled]="form.invalid"
+        [disabled]="form.invalid || loading"
         (click)="onUpdate(form)"
         [disabled]="loading"
       >
@@ -80,11 +85,11 @@
     <ng-template #create>
       <button
         type="button"
+        data-testid="create-button"
         mat-raised-button
         color="primary"
-        [disabled]="form.invalid"
+        [disabled]="form.invalid || loading"
         (click)="onCreate(form)"
-        [disabled]="loading"
       >
         Create
       </button>
