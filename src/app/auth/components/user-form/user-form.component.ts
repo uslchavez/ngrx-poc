@@ -21,7 +21,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
   @Output() login = new EventEmitter<LoginDTO>();
   @Output() register = new EventEmitter<LoginDTO>();
   @Input() loading = false;
-  currentPage: string = '';
+  currentPage = '';
 
   private notifier = new Subject();
 

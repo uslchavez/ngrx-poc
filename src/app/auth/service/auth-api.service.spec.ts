@@ -37,7 +37,6 @@ describe('AuthApiService', () => {
   });
 
   it('should do a POST request calling "registerUser" method', () => {
-    let testRequest;
     const requestMatch: RequestMatch = {
       method: 'POST',
       url: 'https://reqres.in/api/register',
@@ -50,7 +49,7 @@ describe('AuthApiService', () => {
         expect(response).toBe(registrationResponse);
       });
 
-    testRequest = httpController.expectOne(
+    const testRequest = httpController.expectOne(
       requestMatch,
       'Register user endpoint'
     );
@@ -59,7 +58,6 @@ describe('AuthApiService', () => {
   });
 
   it('should do a POST request calling "loginUser" method', () => {
-    let testRequest;
     const requestMatch: RequestMatch = {
       method: 'POST',
       url: 'https://reqres.in/api/login',
@@ -72,7 +70,10 @@ describe('AuthApiService', () => {
         expect(response).toBe(loginResponse);
       });
 
-    testRequest = httpController.expectOne(requestMatch, 'Login user endpoint');
+    const testRequest = httpController.expectOne(
+      requestMatch,
+      'Login user endpoint'
+    );
     testRequest.flush(loginResponse, { status: 200, statusText: 'OK' });
     httpController.verify();
   });

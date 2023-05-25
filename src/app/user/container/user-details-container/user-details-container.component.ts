@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 
@@ -17,7 +17,7 @@ import {
   templateUrl: './user-details-container.component.html',
   styleUrls: ['./user-details-container.component.scss'],
 })
-export class UserDetailsContainerComponent {
+export class UserDetailsContainerComponent implements OnInit {
   loading$!: Observable<boolean>;
   loaded$!: Observable<boolean>;
   user$!: Observable<User | undefined>;
