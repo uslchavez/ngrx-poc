@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is pushing new changes
 on: [push]
 jobs:
   check-code-quality:
-    runs-on: ubuntu-latests
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
