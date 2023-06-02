@@ -19,18 +19,26 @@ export const authReducer = createReducer(
       token: '',
     };
   }),
-  on(actions.loginUserSuccess, (state, { payload }) => {
-    return {
-      ...state,
-      loading: false,
-      token: payload.token,
-    };
-  }),
-  on(actions.loginUserFailure, (state, { payload }) => {
-    return {
-      ...state,
-      loading: false,
-      error: payload.error,
-    };
-  })
+  on(
+    actions.loginUserSuccess,
+    actions.registerUserSuccess,
+    (state, { payload }) => {
+      return {
+        ...state,
+        loading: false,
+        token: payload.token,
+      };
+    }
+  ),
+  on(
+    actions.loginUserFailure,
+    actions.registerUserFailure,
+    (state, { payload }) => {
+      return {
+        ...state,
+        loading: false,
+        error: payload.error,
+      };
+    }
+  )
 );
