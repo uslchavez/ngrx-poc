@@ -3,10 +3,21 @@
     <span>ngrx-poc</span>
     <span class="example-spacer"></span>
     <a mat-button routerLinkActive="active" routerLink="users">Users</a>
-    <a mat-button routerLinkActive="active" routerLink="auth/login">Sign In</a>
-    <a mat-stroked-button routerLinkActive="active" routerLink="auth/register"
+    <a
+      mat-button
+      routerLinkActive="active"
+      routerLink="auth/login"
+      hideIfAuthenticated
+      >Sign In</a
+    >
+    <a
+      mat-stroked-button
+      routerLinkActive="active"
+      routerLink="auth/register"
+      hideIfAuthenticated
       >Sign Up</a
     >
+    <a mat-stroked-button showIfAuthenticated (click)="logOut()">Log Out</a>
   </mat-toolbar>
 </p>
 

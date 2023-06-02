@@ -18,7 +18,6 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { LoginContainerComponent } from './containers/login-container/login-container.component';
 import { AuthApiService } from './service/auth-api.service';
 import { effects, reducers } from './store';
-import { AuthLocalStorageService } from './service/auth-localstorage.service';
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'outline',
@@ -41,7 +40,6 @@ const appearance: MatFormFieldDefaultOptions = {
       useValue: appearance,
     },
     AuthApiService,
-    AuthLocalStorageService,
   ],
 })
 export class AuthModule {}

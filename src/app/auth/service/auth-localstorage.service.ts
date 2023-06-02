@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthLocalStorageService {
   private readonly TOKEN_KEY = 'AUTH_TOKEN';
 
@@ -10,5 +12,10 @@ export class AuthLocalStorageService {
 
   clearToken() {
     localStorage.removeItem(this.TOKEN_KEY);
+  }
+
+  isTokenAvailable() {
+    const token = localStorage.getItem(this.TOKEN_KEY);
+    return token !== null && token !== '';
   }
 }
