@@ -2,6 +2,9 @@ import { Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Action } from '@ngrx/store';
 import { provideMockActions } from '@ngrx/effects/testing';
@@ -14,12 +17,14 @@ import { UsersEffect } from './users-effects';
 import { actions } from '../actions';
 import { routerActions } from '../../../store/actions';
 import { ListUserResponse, SingleUserResponse } from '../../models';
+import { MessagesService } from 'src/app/shared/services/messages.service';
 
 describe('users effects', () => {
   let service: UsersApiService;
   let effects: UsersEffect;
   let actions$ = new Observable<Action>();
   let router: Router;
+  let messages: MessagesService;
 
   let createUserSpy: jasmine.Spy;
   let updateUserSpy: jasmine.Spy;
@@ -27,6 +32,7 @@ describe('users effects', () => {
   let getUsersSpy: jasmine.Spy;
   let getUserSpy: jasmine.Spy;
   let navigateSpy: jasmine.Spy;
+  let successSpy: jasmine.Spy;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -35,12 +41,15 @@ describe('users effects', () => {
         UsersApiService,
         UsersEffect,
         provideMockActions(() => actions$),
+        MatSnackBar,
+        BrowserAnimationsModule,
       ],
     });
 
     service = TestBed.inject(UsersApiService);
     effects = TestBed.inject(UsersEffect);
     router = TestBed.inject(Router);
+    messages = TestBed.inject(MessagesService);
 
     createUserSpy = spyOn(service, 'createUser');
     updateUserSpy = spyOn(service, 'updateUser');
@@ -48,6 +57,7 @@ describe('users effects', () => {
     getUsersSpy = spyOn(service, 'getUsers');
     getUserSpy = spyOn(service, 'getUser');
     navigateSpy = spyOn(router, 'navigate');
+    successSpy = spyOn(messages, 'success');
   });
 
   it('should return User from createUser action', () => {
@@ -388,5 +398,59 @@ describe('users effects', () => {
     });
 
     expect(effects.successOperation$).toBeObservable(expected);
+  });
+
+  it('should invoke message service success from createUserSuccess action', () => {
+    actions$ = of(
+      actions.createUserSuccess({
+        payload: {
+          avatar: '',
+          email: '',
+          first_name: '',
+          id: 1,
+          last_name: '',
+        },
+      })
+    );
+
+    effects.creationSuccessful$.pipe(take(1)).subscribe();
+
+    expect(successSpy).toHaveBeenCalledWith('User created successfully');
+  });
+
+  it('should invoke message service success from deleteUserSuccess action', () => {
+    actions$ = of(
+      actions.deleteUserSuccess({
+        payload: {
+          avatar: '',
+          email: '',
+          first_name: '',
+          id: 1,
+          last_name: '',
+        },
+      })
+    );
+
+    effects.deleteSuccessful$.pipe(take(1)).subscribe();
+
+    expect(successSpy).toHaveBeenCalledWith('User deleted successfully');
+  });
+
+  it('should invoke message service success from updateUserSuccess action', () => {
+    actions$ = of(
+      actions.updateUserSuccess({
+        payload: {
+          avatar: '',
+          email: '',
+          first_name: '',
+          id: 1,
+          last_name: '',
+        },
+      })
+    );
+
+    effects.updateSuccessful$.pipe(take(1)).subscribe();
+
+    expect(successSpy).toHaveBeenCalledWith('User updated successfully');
   });
 });

@@ -8,13 +8,15 @@ import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { routerActions } from 'src/app/store';
 import { UsersApiService } from '../../services/users-api.service';
 import { actions } from '../actions';
+import { MessagesService } from 'src/app/shared/services/messages.service';
 
 @Injectable()
 export class UsersEffect {
   constructor(
     private router: Router,
     private actions$: Actions,
-    private usersApi: UsersApiService
+    private usersApi: UsersApiService,
+    private message: MessagesService
   ) {}
 
   getUsers$ = createEffect(() =>
@@ -103,5 +105,32 @@ export class UsersEffect {
       ),
       switchMap(() => of(routerActions.go({ payload: ['users'] })))
     )
+  );
+
+  creationSuccessful$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actions.createUserSuccess),
+        tap(() => this.message.success('User created successfully'))
+      ),
+    { dispatch: false }
+  );
+
+  deleteSuccessful$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actions.deleteUserSuccess),
+        tap(() => this.message.success('User deleted successfully'))
+      ),
+    { dispatch: false }
+  );
+
+  updateSuccessful$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actions.updateUserSuccess),
+        tap(() => this.message.success('User updated successfully'))
+      ),
+    { dispatch: false }
   );
 }
