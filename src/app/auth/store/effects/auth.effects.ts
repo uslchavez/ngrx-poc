@@ -8,6 +8,7 @@ import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { actions } from '../actions/auth.actions';
 import { AuthApiService } from '../../service/auth-api.service';
 import { AuthLocalStorageService } from '../../service/auth-localstorage.service';
+import { MessagesService } from 'src/app/shared/services/messages.service';
 
 @Injectable()
 export class AuthEffects {
@@ -15,7 +16,8 @@ export class AuthEffects {
     private actions$: Actions,
     private router: Router,
     private authApi: AuthApiService,
-    private authLs: AuthLocalStorageService
+    private authLs: AuthLocalStorageService,
+    private messages: MessagesService
   ) {}
 
   register$ = createEffect(() =>
@@ -56,7 +58,21 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(actions.loginUserSuccess, actions.registerUserSuccess),
+        tap(() => this.messages.success('Welcome!')),
         tap(() => this.router.navigate(['users']))
+      ),
+    { dispatch: false }
+  );
+
+  authFail$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actions.loginUserFailure, actions.registerUserFailure),
+        tap(() =>
+          this.messages.failure(
+            'Invalid credentials try with other email or password'
+          )
+        )
       ),
     { dispatch: false }
   );
