@@ -26,4 +26,21 @@ describe('AuthLocalStorageService', () => {
 
     expect(lsSpy).toHaveBeenCalledOnceWith('AUTH_TOKEN');
   });
+
+  it('should return true if token exists on localStorage calling isTokenAvailable', () => {
+    const lsSpy = spyOn(localStorage, 'getItem').and.returnValue('1231255');
+
+    const result = service.isTokenAvailable();
+
+    expect(result).toBeTrue();
+    expect(lsSpy).toHaveBeenCalled();
+  });
+  it("should return false if token doesn't exists on localStorage calling isTokenAvailable", () => {
+    const lsSpy = spyOn(localStorage, 'getItem').and.returnValue(null);
+
+    const result = service.isTokenAvailable();
+
+    expect(result).toBeFalse();
+    expect(lsSpy).toHaveBeenCalled();
+  });
 });

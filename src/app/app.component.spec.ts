@@ -7,9 +7,14 @@ import { AppComponent } from './app.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthLocalStorageService } from './auth/service/auth-localstorage.service';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
+  let router: Router;
+  let authLocalStorage: AuthLocalStorageService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -20,6 +25,11 @@ describe('AppComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
+    router = TestBed.inject(Router);
+    authLocalStorage = TestBed.inject(AuthLocalStorageService);
+
+    component = fixture.componentInstance;
+
     fixture.detectChanges();
   });
 
@@ -38,9 +48,19 @@ describe('AppComponent', () => {
     const authRegisterAnchor: HTMLAnchorElement = links[2].nativeElement;
 
     expect(toolbar).toBeDefined();
-    expect(links.length).toBe(3);
+    expect(links.length).toBe(4);
     expect(usersAnchor.href).toContain('/users');
     expect(authLoginAnchor.href).toContain('/auth/login');
     expect(authRegisterAnchor.href).toContain('/auth/register');
+  });
+
+  it('should clear token and navigate to login after call logout', () => {
+    const navigateSpy = spyOn(router, 'navigate');
+    const clearTokenSpy = spyOn(authLocalStorage, 'clearToken');
+
+    component.logOut();
+
+    expect(navigateSpy).toHaveBeenCalledWith(['auth', 'login']);
+    expect(clearTokenSpy).toHaveBeenCalled();
   });
 });

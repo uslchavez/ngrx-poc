@@ -1,4 +1,5 @@
 import { Directive, ElementRef, OnInit } from '@angular/core';
+
 import { Router } from '@angular/router';
 
 @Directive({})
@@ -15,10 +16,10 @@ export abstract class AuthDisplayBase implements OnInit {
   abstract handleVisibility(): void;
 
   protected hide(): void {
-    (this.el.nativeElement as HTMLElement).style.display = 'none';
+    this.el.nativeElement.style.display = 'none';
   }
 
   protected show(): void {
-    (this.el.nativeElement as HTMLElement).style.display = 'block';
+    this.el.nativeElement.style.display = 'block';
   }
 }
